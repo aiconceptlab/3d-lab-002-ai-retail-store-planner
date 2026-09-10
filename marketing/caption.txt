@@ -1,0 +1,28 @@
+I gave AI a shop and a goal:
+sell more coffee. ☕
+
+But with two rules:
+→ Don’t move checkout.
+→ Keep the reserved aisles at least 1.5 m wide.
+
+3D LAB // 002 — AI Retail Store Planner
+
+The idea: explore a merchandising hypothesis before moving the real shelves.
+
+In the included example, coffee moves from the rear display to an entrance-side bay. You can switch between Current and AI Layout, walk through both, inspect the floor plan and export the scene.
+
+The free starter includes a clearly labelled sample proposal. Connect an API account to let GPT-6 Astra interpret a custom goal; code checks the returned layout before showing it.
+
+This is AI concept visualization. A display moving closer to the entrance does not prove increased sales. That would need a real-world experiment.
+
+Small shop dataset. Three movable displays. A fixed checkout. A working 3D viewer.
+
+The source code is free.
+Comment “CODE” and I’ll send you the link. 👇
+
+—
+3D LAB // 002
+AI Concept Lab
+Testing AI ideas to find what’s worth building.
+
+#AIConceptLab #3DLab #RetailDesign #ArtificialIntelligence #BuildInPublic
