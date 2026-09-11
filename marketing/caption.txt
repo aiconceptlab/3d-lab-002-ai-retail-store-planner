@@ -1,30 +1,36 @@
-I gave AI a shop and a goal:
-sell more coffee. ☕
+3D LAB // 002 — AI Retail Flow Simulator ☕️
 
-But with two rules:
-→ Don’t move checkout.
-→ Keep the reserved aisles at least 1.5 m wide.
+Upload a shop. Watch people use it.
 
-3D LAB // 002 — AI Retail Store Planner
+For this POC, I started with one fixed-camera image of a fictional coffee shop.
 
-The idea: explore a merchandising hypothesis before moving the real shelves.
+Higgsfield generated an 8-second scene with five shoppers entering, browsing and queuing.
 
-In the included example, coffee moves from the rear display to an entrance-side bay. You can switch between Current and AI Layout, walk through both, inspect the floor plan and export the scene.
+The result made one layout issue easy to discuss:
+the entrance, browsing and checkout paths converged beside the central display island.
 
-I built the editable visual concept in Higgsfield 3D Jutsu using Auto, then packaged the idea as a separate open-source Three.js starter with measured layout checks.
+So I changed one thing:
+→ moved the island to the perimeter
+→ kept the checkout fixed
+→ opened the central route
+→ ran the same shopper scenario again
 
-The free starter includes a clearly labelled sample proposal. Connect an API account to let GPT-6 Astra interpret a custom goal; the code validates the returned layout before showing it. Astra was not used for the Higgsfield scene.
+The second video is immediately easier to read.
 
-This is AI concept visualization. A display moving closer to the entrance does not prove increased sales. That would need a real-world experiment.
+This is an AI concept simulation — not measured footfall, a sales forecast or proof that the new layout performs better. The useful part is seeing a layout hypothesis before moving real fixtures.
 
-Small shop dataset. Three movable displays. A fixed checkout. A working 3D viewer.
+The free starter includes:
+• clean upload-and-review interface
+• both Higgsfield videos
+• before / after shop images
+• exact generation prompts
+• reusable workflow and checks
 
-The source code is free.
-Comment “CODE” and I’ll send you the link. 👇
+👇 Comment “CODE” and I’ll send you the link.
 
 —
 3D LAB // 002
 AI Concept Lab
-Testing AI ideas to find what’s worth building.
+Testing visual AI ideas to find what’s worth building.
 
-#AIConceptLab #3DLab #RetailDesign #ArtificialIntelligence #BuildInPublic
+#ai #higgsfield #retaildesign #retailtechnology #aivideo #spatialdesign #proofofconcept #buildinpublic #aiconceptlab

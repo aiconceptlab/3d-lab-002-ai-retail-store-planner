@@ -1,93 +1,80 @@
-# 3D LAB // 002 — AI Retail Store Planner
+# 3D LAB // 002 — AI Retail Flow Simulator
 
-**Give a shop a goal: sell more coffee. Explore a different layout.**
+**Upload a shop. Watch people use it.**
 
-A small, runnable retail concept with a walkable 3D shop, Current / AI Layout comparison, measured floor plan, and an optional GPT-6 Astra layout planner. Part of [AI Concept Lab](https://github.com/aiconceptlab).
+A small, runnable product concept that turns a shop image into an AI-generated shopper-flow video, records visible layout observations, and compares one revised layout. Part of [AI Concept Lab](https://github.com/aiconceptlab).
 
-![Actual app screenshot showing the sample proposal, fixed checkout and reserved circulation routes](marketing/screenshots/app-desktop.png)
+![The working app showing the current-layout shopper simulation](marketing/screenshots/app-desktop.png)
 
-The release also includes a real capture from the editable [Higgsfield 3D Jutsu project](https://higgsfield.ai/3d-jutsu/dedde3ff-5ea4-455c-a369-4c5e459e4eac). That scene was built with the model selector showing **Auto · Free** and contains the shop shell, four fixture groups, product props, lighting and two cameras. GPT-6 Astra was not used for the 3D Jutsu scene.
+The repository includes two real 8-second Higgsfield Cinema Studio generations:
 
-![Higgsfield 3D Jutsu editor showing the generated DAILY retail concept](marketing/screenshots/higgsfield-jutsu-editor.png)
+- **Current layout:** shoppers converge beside a central display island.
+- **Revised layout:** the island moves to the perimeter and the central route opens.
 
-**This is AI concept visualization. It does not predict or prove sales uplift.** The default demo is a clearly labelled, pre-authored example. Live mode asks a model to assign existing fixtures to existing bays, then validates the result before showing it.
+The included source and revised images were generated with GPT Image 2 through the connected Higgsfield workflow. Both videos were generated with **Higgsfield Cinema Studio Video**, from fixed 16:9 start frames.
 
-## Run in two minutes
+> These are AI concept simulations. They are useful for discussing a layout hypothesis, but they do not measure footfall, predict sales, validate accessibility, or replace observation in the real shop.
 
-Install Node.js 24, then:
+## Run it
+
+Install Node.js 22 or newer:
 
 ```sh
 npm ci
 npm start
 ```
 
-Open http://127.0.0.1:3014. No credentials or external services are needed for demo mode. The application serves Three.js locally; it does not depend on a runtime CDN.
+Open http://127.0.0.1:3014.
 
-1. Click **Explore sample proposal**.
-2. Compare **Current** and **AI Layout · sample**.
-3. Select **Walk inside**; drag to look and use WASD, arrow keys or the on-screen buttons to move. Escape returns to overview.
-4. Turn on **Show aisles** and inspect the measured floor plan.
-5. Export layout JSON, a PNG view, or either included GLB scene.
+No account, API key or external service is required to play the bundled sample. The server supports byte-range requests, so the MP4 files seek and play correctly in modern browsers.
 
-## The experiment
+## Try the product flow
 
-The fictional DAILY shop is 8 × 10 m. It contains a coffee display, pantry display, brewing display and fixed checkout. The sample swaps coffee and pantry:
+1. Use the included coffee shop or select your own PNG, JPG or WebP. Custom images are previewed locally and are not uploaded.
+2. Play the **Current** sample simulation.
+3. Review the three visible observations.
+4. Choose **View revised simulation** to compare the proposed layout.
+5. Download the Higgsfield brief to reproduce the workflow with another shop image.
 
-| Check                          | Current | Sample proposal |
-| ------------------------------ | ------: | --------------: |
-| Coffee distance from entrance* |   7.9 m |           3.3 m |
-| Fixtures moved                 |       0 |               2 |
-| Checkout                       |   Fixed |           Fixed |
-| Minimum reserved aisle width   |   1.5 m |           1.5 m |
+The public starter deliberately avoids pretending that a browser upload was automatically sent to Higgsfield. The two sample runs are bundled and labelled. To generate a custom run, use the exported prompt brief with Higgsfield and replace the sample assets.
 
-_Euclidean distance between entrance centre and display centre, not walking distance, visibility, footfall or revenue. High/standard margins are fictional category labels, not real commercial data._
+## File map
 
-Blue floor-plan areas are explicit reserved routes: the entrance spine, cross aisle and checkout approach. Fixtures cannot intrude into those rectangles. This is a geometry check for a simplified model, not an accessibility or building-code certification. A real project needs surveyed dimensions, door swings, queues, staff areas and local requirements.
-
-## Optional live AI planning
-
-Copy `.env.example` to `.env`, then set:
-
-```dotenv
-AI_MODE=openai
-OPENAI_MODEL=gpt-6-astra
-OPENAI_API_KEY=your_local_key
-PLANNER_TOKEN=your_random_access_token_at_least_32_characters
+```text
+public/
+  index.html                 Product UI
+  app.js                     Upload preview, run switching, prompt export
+  style.css                  Responsive frontend
+  assets/
+    current-shop.png         Fixed source frame
+    current-flow.mp4         Current-layout simulation
+    revised-shop.png         One proposed layout edit
+    revised-flow.mp4         Revised-layout simulation
+sample/
+  observations.json          Claims and provenance used by the sample
+docs/
+  higgsfield.md              Reproduction workflow and exact prompts
+marketing/
+  instagram-4x5/             Five 1080 × 1350 Instagram slides
+  caption.txt                Instagram caption
+  comment-dm-templates.md    CODE reply templates
 ```
 
-Restart the server. Enter your planner token in **Live planning access**. The API key stays on the server; the access token is held only in page memory. Generate a random token with:
-
-```sh
-node -e "console.log(require('node:crypto').randomBytes(32).toString('hex'))"
-```
-
-Live requests use the OpenAI Responses API with strict structured output, low reasoning effort and `store: false`. Each click makes at most one provider request, with a 45-second timeout, a 30-second cooldown and one request in flight. Invalid geometry, refusals and incomplete responses keep the previous layout. API access and billing are separate from a Higgsfield subscription. Live GPT-6 Astra output was not exercised with a paid account during this release; request/response handling is tested with fixtures.
-
-Demo mode always loads the coffee example, even if you edit the goal. Live mode is required to interpret a custom goal. Neither mode can add fixtures or redesign the room: the deliberately small search space is six permutations of three display bays.
-
-## Higgsfield workflow
-
-This release includes two reproducible GLB scenes from the open-source Three.js implementation, plus a completed, editable [Higgsfield 3D Jutsu scene](https://higgsfield.ai/3d-jutsu/dedde3ff-5ea4-455c-a369-4c5e459e4eac). Higgsfield remains an optional visualization workflow rather than a runtime dependency. No undocumented 3D Jutsu API is called. The supplied vendor screenshots are attributed to **Higgsfield 3D Jutsu · Auto** because that is the model state actually observed during the build.
-
-## Check and modify
+## Verify
 
 ```sh
 npm run check
-npm run export:scenes
+npm run render:instagram
 ```
 
-The 20 tests cover geometry, fixed checkout, every bay permutation, walking bounds, Responses request format, invalid/provider-error responses, HTTP access controls, paid-call cooldown and the actual GLB transforms. CI runs on Windows and Linux.
+The checks validate source files, media signatures, honest claim language, the HTTP server, security headers and MP4 range requests. The app was also reviewed in a desktop browser and at a 390 px mobile viewport; both bundled videos were played and scrubbed.
 
-Edit `data/store.json` for fixtures and bay positions, `public/scene-factory.js` for geometry, and `public/style.css` for appearance. Run the exporter after changing the data or scene factory so the downloadable GLBs match. Raised signs and product lettering are actual meshes and are included in both the web viewer and GLB exports. The bundled Helvetiker font retains its original license in public/assets/FONT-LICENSE.txt.
+## Cost and plan note
 
-See [BUILD.md](BUILD.md) for architecture, verified references and limitations. Instagram assets and caption live in `marketing/`.
+For this release, the image generations cost 2 credits each and each 8-second Cinema Studio video cost 8 credits. Prices and model access can change. A Seedance 2.5 attempt was rejected before submission because that model required Plus on the connected account; no Seedance video credits were spent.
 
-## Public deployment
-
-The default server binds to loopback. It is a local POC, not a hosted multi-user service. If you expose live mode, use HTTPS, real user authentication, provider spend limits and durable rate limiting. The included access token and in-memory cooldown are suitable for a controlled demonstration only. No CRM, sales data, visitor tracking or analytics integration is included.
+Higgsfield's official help centre describes Cinema Studio as its controlled cinematic video workflow and documents image/video generation through connected AI agents. See [BUILD.md](BUILD.md) for checked references and the exact release record.
 
 ## License
 
-MIT for the original starter code and original project assets. Three.js is MIT licensed. Vendor names are used descriptively; no affiliation or endorsement is implied.
-
-Helvetiker signage font: copyright MAGENTA Ltd., distributed under its included font license (see public/assets/FONT-LICENSE.txt); this font is not relicensed under the project MIT license.
+MIT for the starter code and original project copy. Generated sample media is supplied for this demonstration repository. Vendor names are used descriptively; no affiliation or endorsement is implied.

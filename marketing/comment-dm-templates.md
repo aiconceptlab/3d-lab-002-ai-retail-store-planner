@@ -1,13 +1,20 @@
-# Reply templates — manual use
+# Comment and DM templates
 
-Public reply:
+## Public reply
 
-> Thanks! I’ll send you the starter link ☕
+Sent — check your DMs 👋
 
-Direct message:
+## DM
 
-> Here’s 3D LAB // 002 — AI Retail Store Planner: https://github.com/aiconceptlab/3d-lab-002-ai-retail-store-planner
->
-> The demo runs locally without keys. It includes both layouts, walk-through controls, reserved-aisle checks and sample data. Optional live AI planning uses your own API account. It’s a retail concept visualization, not a claim of proven sales optimization. The README has the setup steps. Enjoy building!
+Here you go — the full AI Retail Flow Simulator starter:
 
-No replies or DMs have been sent automatically.
+https://github.com/aiconceptlab/3d-lab-002-ai-retail-store-planner
+
+It includes the runnable app, both Higgsfield simulation videos, source and revised frames, exact prompts, 4:5 Instagram carousel and setup notes.
+
+The sample is an AI concept simulation, so use it to discuss a layout hypothesis and validate any real decision in the shop.
+
+## Short DM
+
+AI Retail Flow Simulator starter:
+https://github.com/aiconceptlab/3d-lab-002-ai-retail-store-planner

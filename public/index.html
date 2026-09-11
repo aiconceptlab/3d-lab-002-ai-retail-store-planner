@@ -2,140 +2,86 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="theme-color" content="#24372f" />
-    <title>DAILY — AI Retail Store Planner | AI Concept Lab</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#071b1b" />
+    <meta name="description" content="Upload a shop image, preview an AI shopper-flow simulation, inspect a layout hypothesis and compare a revised run." />
+    <title>AI Retail Flow Simulator · AI Concept Lab</title>
     <link rel="stylesheet" href="/style.css" />
-    <script type="importmap">
-      {
-        "imports": {
-          "three": "/vendor/three.module.js",
-          "three/addons/loaders/FontLoader.js": "/vendor/loaders/FontLoader.js",
-          "three/addons/controls/OrbitControls.js": "/vendor/OrbitControls.js"
-        }
-      }
-    </script>
   </head>
   <body>
-    <header>
-      <a href="/" class="brand">AI CONCEPT LAB</a><span class="series">3D LAB // 002</span
-      ><span class="concept">AI concept visualization</span>
+    <header class="topbar">
+      <a href="/" class="brand">AI CONCEPT LAB</a>
+      <span class="series">3D LAB // 002</span>
+      <span class="claim">AI concept simulation</span>
     </header>
     <main>
-      <section class="intro">
-        <div>
-          <p class="eyebrow">THE RETAIL EXPERIMENT</p>
-          <h1>Same shop.<br /><em>A different first impression.</em></h1>
-          <p>Give a small shop a goal. Explore a layout hypothesis before moving a single shelf.</p>
-        </div>
-        <div class="shop-name">
-          DAILY<span>COFFEE &amp; PROVISIONS</span><small>A fictional 8 × 10 m shop</small>
-        </div>
+      <section class="hero">
+        <p class="eyebrow">AI RETAIL FLOW SIMULATOR</p>
+        <h1>Upload a shop.<br /><em>Watch people use it.</em></h1>
+        <p class="lede">Turn one shop photo or floor plan into a short shopper-flow concept, spot a layout issue, and visualize one possible improvement.</p>
+        <ol class="steps" aria-label="Workflow">
+          <li><b>01</b><span>Upload</span></li><li><b>02</b><span>Simulate</span></li>
+          <li><b>03</b><span>Review</span></li><li><b>04</b><span>Re-run</span></li>
+        </ol>
       </section>
-      <div class="workspace">
-        <aside>
-          <p class="eyebrow">01 / THE BRIEF</p>
-          <label for="goal">What should this layout emphasize?</label
-          ><textarea id="goal" maxlength="1200">
-Increase high-margin coffee exposure near the entrance.</textarea>
-          <div class="rules">
-            <span>↳ Checkout stays in place</span><span>↳ Reserved aisles stay ≥ 1.5 m</span
-            ><span>↳ Same shop. Same fixtures.</span>
+      <section class="lab">
+        <aside class="input-panel">
+          <div class="section-title"><span>01</span><div><p>INPUT</p><h2>Your shop</h2></div></div>
+          <label class="dropzone" for="shop-file">
+            <input id="shop-file" type="file" accept="image/png,image/jpeg,image/webp" />
+            <span class="upload-icon">↥</span><strong>Choose a photo or plan</strong>
+            <small>PNG, JPG or WebP · previewed locally</small>
+          </label>
+          <button class="quiet" id="sample-button" type="button">Use included coffee shop</button>
+          <div class="source-card">
+            <img id="source-preview" src="/assets/current-shop.png" alt="Included coffee shop source image" />
+            <div><span id="source-label">SAMPLE SOURCE</span><strong id="source-name">coffee-shop.png</strong></div>
           </div>
-          <button id="generate" class="primary">Explore sample proposal →</button>
-          <p id="mode-note" class="muted">Loading planner…</p>
-          <details id="live-settings" hidden>
-            <summary>Live planning access</summary>
-            <label for="token">Planner access token</label
-            ><input id="token" type="password" autocomplete="off" />
-            <p class="muted">Kept only in this page. Each live request may incur API charges.</p>
-          </details>
-          <p id="status" role="status" aria-live="polite"></p>
-          <div class="hypothesis">
-            <p class="eyebrow">WHY THIS MOVE?</p>
-            <p id="rationale"></p>
-          </div>
-          <p class="disclaimer">
-            Concept visualization, not validated retail optimization. No sales uplift is predicted.
-          </p>
+          <label class="goal-label" for="goal">Simulation goal</label>
+          <textarea id="goal" rows="4">Observe entry, browsing and checkout paths. Look for congestion and cross-traffic.</textarea>
+          <button class="primary" id="run-button" type="button">Run sample simulation <span>→</span></button>
+          <p id="upload-note" class="note">The included run was generated with Higgsfield. A selected image stays in your browser; use the exported brief to generate a new run.</p>
+          <button class="text-button" id="brief-button" type="button">Download Higgsfield brief ↓</button>
         </aside>
-        <section class="viewer-column" aria-label="Interactive store">
-          <div class="viewbar">
-            <div class="segmented">
-              <button id="current" aria-pressed="true">Current</button
-              ><button id="proposal" aria-pressed="false">AI Layout <small>sample</small></button>
-            </div>
-            <span id="scene-source">Existing layout</span>
-          </div>
-          <div id="stage">
-            <canvas
-              id="scene"
-              aria-label="Interactive 3D shop. Use the view buttons and floor plan for an accessible alternative."
-            ></canvas>
-            <div class="scene-badge">DAILY / <span id="layout-name">CURRENT</span></div>
-            <div id="webgl-error" hidden>
-              3D is unavailable in this browser. The floor plan and layout checks below still work.
-            </div>
-            <div class="stage-bottom">
-              <span id="controls-help">Drag to orbit · Scroll to zoom · Click a display</span>
-              <div>
-                <button id="overview">Overview</button
-                ><button id="walk" aria-pressed="false">Walk inside</button
-                ><button id="aisles" aria-pressed="false">Show aisles</button>
-              </div>
-            </div>
-            <div id="move-pad" hidden>
-              <button data-move="forward" aria-label="Move forward">↑</button
-              ><button data-move="left" aria-label="Step left">←</button
-              ><button data-move="back" aria-label="Move backward">↓</button
-              ><button data-move="right" aria-label="Step right">→</button>
+        <section class="result-panel">
+          <div class="result-head">
+            <div class="section-title"><span>02</span><div><p>SIMULATION</p><h2>Shopper flow</h2></div></div>
+            <div class="switcher" role="group" aria-label="Select simulation">
+              <button data-view="current" aria-pressed="true">Current</button>
+              <button data-view="revised" aria-pressed="false">Revised</button>
             </div>
           </div>
-          <div class="metrics">
-            <div><strong id="distance">—</strong><span>Coffee → entrance*</span></div>
-            <div><strong id="moves">—</strong><span>Fixtures moved</span></div>
-            <div><strong>Fixed</strong><span>Checkout position</span></div>
-            <div><strong id="clearance">—</strong><span>Reserved aisle width</span></div>
+          <div class="video-shell">
+            <video id="simulation" controls muted playsinline preload="metadata" poster="/assets/current-shop.png">
+              <source src="/assets/current-flow.mp4" type="video/mp4" />
+            </video>
+            <div class="video-badge"><i></i><span id="run-label">CURRENT LAYOUT · SAMPLE RUN</span></div>
+            <div class="video-caption"><span>HIGGSFIELD CINEMA STUDIO</span><span>8 SEC · FIXED CAMERA</span></div>
           </div>
-          <p class="measurement-note">
-            *Straight-line distance from entrance centre to display centre. This measures position,
-            not visibility, footfall or sales.
-          </p>
-          <div class="lower">
-            <div>
-              <div class="section-heading">
-                <p class="eyebrow">02 / MEASURED FLOOR PLAN</p>
-                <span>1 unit = 1 metre</span>
-              </div>
-              <svg
-                id="floorplan"
-                viewBox="-4.7 -5.6 9.4 11.2"
-                role="img"
-                aria-label="Store floor plan showing fixtures and reserved aisles"
-              ></svg>
+          <div class="analysis">
+            <div class="section-title"><span>03</span><div><p>REVIEW</p><h2>What the video suggests</h2></div></div>
+            <div class="finding-grid">
+              <article><b>01</b><h3>Paths converge</h3><p>Browsing and entry routes meet at the near end of the central island.</p></article>
+              <article><b>02</b><h3>Queue crosses flow</h3><p>The checkout approach competes with movement toward the back wall.</p></article>
+              <article><b>03</b><h3>One change to test</h3><p>Move the island to the perimeter and keep the centre route open.</p></article>
             </div>
-            <div>
-              <p class="eyebrow">03 / INSPECT THE IDEA</p>
-              <h2 id="fixture-title">Specialty coffee</h2>
-              <p id="fixture-info">Select a display in the 3D view or the list below.</p>
-              <div id="fixture-list"></div>
-              <hr />
-              <p class="muted">
-                Blue areas are the explicitly reserved circulation routes. Checks cover this toy
-                geometry, not building regulations or a real premises survey.
-              </p>
-              <button id="save-view">Save 3D view PNG ↓</button
-              ><button id="download-plan">Download layout JSON ↓</button
-              ><a class="download" href="/assets/current.glb" download>Current scene .GLB ↓</a
-              ><a class="download" href="/assets/ai-layout.glb" download>Sample AI layout .GLB ↓</a>
+            <button class="primary accent" id="apply-button" type="button">View revised simulation <span>→</span></button>
+          </div>
+          <div class="comparison">
+            <div class="section-title"><span>04</span><div><p>LAYOUT HYPOTHESIS</p><h2>One visible change</h2></div></div>
+            <div class="compare-grid">
+              <figure><img src="/assets/current-shop.png" alt="Current layout with a large central island" /><figcaption><b>Before</b><span>Central display interrupts the direct path</span></figcaption></figure>
+              <figure><img src="/assets/revised-shop.png" alt="Revised layout with an open central path" /><figcaption><b>After</b><span>Display moved to the perimeter; checkout stays fixed</span></figcaption></figure>
             </div>
           </div>
         </section>
-      </div>
+      </section>
+      <section class="boundary">
+        <p class="eyebrow">WHAT THIS PROVES</p><h2>A faster way to discuss a layout idea.</h2>
+        <p>The videos are generative concept simulations. They do not measure real footfall, predict sales, validate accessibility, or replace observed customer research.</p>
+      </section>
     </main>
-    <footer>
-      AI CONCEPT LAB · 3D LAB // 002 <span>Explore hypotheses. Measure the real outcome.</span>
-    </footer>
+    <footer>AI CONCEPT LAB · 3D LAB // 002 <span>Visualize the idea. Validate it in the real shop.</span></footer>
     <script type="module" src="/app.js"></script>
   </body>
 </html>

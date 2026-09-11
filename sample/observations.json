@@ -1,0 +1,23 @@
+{
+  "series": "3D LAB // 002",
+  "title": "AI Retail Flow Simulator",
+  "claim": "AI concept simulation",
+  "source": {
+    "type": "generated sample",
+    "shop": "fictional coffee retailer",
+    "people": "synthetic generic adults"
+  },
+  "currentRun": {
+    "visibleObservations": [
+      "Entry and browsing paths converge beside the near end of the central island.",
+      "The checkout approach shares space with movement toward the back wall."
+    ]
+  },
+  "layoutHypothesis": "Move the central display to the perimeter and preserve an open centre route.",
+  "limits": [
+    "No measured footfall",
+    "No predicted sales uplift",
+    "No accessibility validation",
+    "No substitute for observation in the real shop"
+  ]
+}

@@ -1,45 +1,58 @@
-# Optional 3D Jutsu workflow
+# Higgsfield reproduction guide
 
-The starter itself renders with Three.js. Both scenes are supplied as GLB files under `public/assets/`. They are actual exports of the same geometry used by the app.
+This project uses one fixed-camera shop image, one layout edit and two matched shopper-flow videos.
 
-## Verified release scene
+## Current source frame
 
-The completed vendor scene is named **3D LAB 002 — AI Retail Store Planner**:
+- Model: `gpt_image_2`
+- Job: `b237e2de-c79e-4e91-a9b9-61ab24ea2042`
+- Settings: 16:9, 2K, medium quality
+- Recorded cost: 2 credits
 
-https://higgsfield.ai/3d-jutsu/dedde3ff-5ea4-455c-a369-4c5e459e4eac
+Prompt:
 
-It was created in a Starter-enabled account with the model selector showing **Auto · Free** and generation set to Allow mode. The build used editable primitive geometry and solid materials. It did not request external images, video, audio or textures.
+> Photorealistic wide-angle interior photograph of a compact premium coffee retail shop, viewed from a fixed high corner security-camera position so the complete customer path is easy to read. No people. Entrance in the front-left foreground, checkout counter fixed at the back-right, premium coffee shelves and beans display at the back-left, and a large freestanding promotional island near the entrance that visibly narrows the main route and creates a crossing point near the checkout queue. Warm oak shelving, deep teal walls, cream stone, realistic commercial lighting, polished concrete floor, credible real-world retail design, clean but fully stocked. Natural perspective, architectural photography, no text, no logos, no arrows, no floorplan overlay.
 
-The final verification pass reported 392 objects, a clear 1.5 m central aisle, clear cross-aisles, a clear queue zone and four fixture groups inside their planned footprints. Higgsfield rebuilt the scene after detecting that its first box helper anchored geometry at corners. The corrected build reached revision 12 before verification.
+## Current shopper-flow run
 
-Two direct captures are supplied in `marketing/screenshots/`: the full editor state and a clean entrance-camera crop. The second overview camera exists but its saved composition points into the ceiling, so it is not used as promotional evidence. The open-source app's measured floor plan remains the reliable layout comparison.
+- Model: `cinematic_studio_video_v2`
+- Job: `af0727a7-67f4-4999-bc22-ebbf3629dccf`
+- Settings: 16:9, 8 seconds, standard mode, sound off, linear speed, one shot, CFG 0.7
+- Recorded cost: 8 credits
 
-The social cover uses Higgsfield's current official icon from `https://higgsfield.ai/icon.png`, paired with the text “Higgsfield 3D Jutsu · Auto”.
+Prompt:
 
-GPT-6 Astra was not used for this 3D Jutsu scene. Do not attribute the vendor output to Astra.
+> Use the supplied shop photograph as a locked, fixed high-corner camera. Preserve the architecture, shelves, products, central display island, entrance and checkout exactly. Simulate natural shopper use with five generic adult customers: two enter from the left doorway, one pauses at the central island, one crosses toward the back coffee wall, and one queues at the checkout. Their paths briefly converge around the near end of the central island, making the circulation bottleneck visible. Realistic walking speed and body motion, believable retail behavior, no one looks at camera, no camera movement, no zoom, no scene cuts, no text, no graphics, no new furniture.
 
-## Reusable scene brief
+## Revised frame
 
-The original brief is preserved below so the experiment can be repeated. Check the model label and displayed cost before a new run.
+- Model: `gpt_image_2`
+- Job: `ea7833b8-6ae9-4e03-8db2-6201249325d9`
+- Settings: 16:9, 2K, medium quality, current frame as reference
+- Recorded cost: 2 credits
 
-```text
-Build a premium but simple editable 3D retail concept called DAILY / coffee & provisions. Use primitive geometry and solid materials only; do not generate images, video, audio, textures or external paid assets. This is an AI concept visualization, not proven sales optimization.
+Prompt:
 
-Create two labelled comparison groups, CURRENT and AI LAYOUT, with the same 8 m × 10 m store and 3.4 m height. Keep local coordinates for each room: x from -4 to 4, z from -5 (rear) to 5 (entrance), floor y=0.
+> Edit this exact shop photograph into a revised layout while preserving the same fixed high-corner camera, room architecture, entrance, checkout counter, wall shelving, lighting, colors and product style. Remove the large freestanding island from the middle of the floor. Replace it with one slim low display table running along the right-hand perimeter before the checkout, leaving a wide uninterrupted central path from the left entrance to the back wall. Add a small clearly organized queue rail beside the checkout that does not cross the entrance path. Keep the shop photorealistic, fully stocked and believable. No people, no text, no logos, no arrows, no overlay, no camera change.
 
-Fixed checkout in both: centre x=2.25, z=-4.15, footprint 2.2 × 0.8 m, height 1.05 m. Never move it.
-Three display bays: front-left (-2.25,2.6), front-right (2.25,2.6), rear-left (-2.25,-2.6).
-Coffee and pantry displays: footprint 1.4 × 1.2 m, height 1.65 m. Brewing display: same footprint, height 1.25 m.
-CURRENT: coffee rear-left, pantry front-left, brew front-right.
-AI LAYOUT: coffee front-left, pantry rear-left, brew front-right.
+## Revised shopper-flow run
 
-Keep the full 1.5 m central aisle (x -0.75 to 0.75), full 1.5 m cross aisle (z -0.75 to 0.75), and checkout approach (x -0.75 to 3.95, z -3.5 to -2.0) free of fixtures. Colour these floor overlays pale teal for inspection. Do not add plants or stools in these routes.
+- Model: `cinematic_studio_video_v2`
+- Job: `f591b11e-d238-46d8-bec9-02ae01eee7f3`
+- Settings: 16:9, 8 seconds, standard mode, sound off, linear speed, one shot, CFG 0.7
+- Recorded cost: 8 credits
 
-Warm oak shelving, cream floor, forest-green checkout, copper coffee packaging, simple pendant lights. Use existing mesh objects. Clear named groups, overview cameras and eye-level entrance cameras for both layouts. Do not claim increased conversion or revenue. The goal is to bring the coffee display closer to the entrance while preserving the constraints.
-```
+Prompt:
 
-## Attribution rule
+> Use the supplied revised shop photograph as a locked, fixed high-corner camera. Preserve the architecture, shelves, products, open central floor, perimeter display, queue rail, entrance and checkout exactly. Simulate the same natural shopper scenario with five distinct generic adult customers: two enter from the left doorway, one walks directly toward the back coffee wall, one browses the low right-side display, and one joins the organized checkout queue. Keep the broad central route visibly open and show people passing without converging at one pinch point. Realistic walking speed and body motion, believable retail behavior, no one looks at camera, no camera movement, no zoom, no scene cuts, no text, no graphics, no new furniture.
 
-Capture the actual scene and record the model used. Compare checkout coordinates and aisle routes with the supplied JSON. If the output differs, label it as an illustrative vendor rendering rather than verified dimensional evidence. Do not claim GPT-6 Astra created an Auto-selected output.
+## Using your own shop
 
-Use the original vendor logo assets only when appropriate, with AI Concept Lab remaining the primary brand. A model's availability in a menu is not evidence that it generated this project's scene.
+1. Pick a wide photograph that shows the entrance, key displays and checkout. A simple plan also works, but use the same visual style for both runs.
+2. Keep the camera locked. Movement between cameras makes comparison harder.
+3. Describe a small set of shopper actions that reveal the route you want to inspect.
+4. Write observations from what is actually visible. Avoid invented counts or conversion claims.
+5. Change one layout feature, preserve fixed elements, and run the same shopper scenario again.
+6. Put the outputs in `public/assets` as `current-shop.png`, `current-flow.mp4`, `revised-shop.png` and `revised-flow.mp4`.
+
+Generation is probabilistic. Inspect hands, bodies, fixtures and continuity before publishing.
