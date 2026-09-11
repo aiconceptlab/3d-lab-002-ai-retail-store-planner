@@ -14,6 +14,8 @@ The final verification pass reported 392 objects, a clear 1.5 m central aisle, c
 
 Two direct captures are supplied in `marketing/screenshots/`: the full editor state and a clean entrance-camera crop. The second overview camera exists but its saved composition points into the ceiling, so it is not used as promotional evidence. The open-source app's measured floor plan remains the reliable layout comparison.
 
+The social cover uses Higgsfield's current official icon from `https://higgsfield.ai/icon.png`, paired with the text “Higgsfield 3D Jutsu · Auto”.
+
 GPT-6 Astra was not used for this 3D Jutsu scene. Do not attribute the vendor output to Astra.
 
 ## Reusable scene brief

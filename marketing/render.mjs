@@ -86,7 +86,8 @@ slides.push([
   "01-cover",
   lines(90, 252, ["I gave AI a shop", "and a goal:"], 79, C.ink, 700, 90) +
     t(90, 445, "sell more coffee.", 85, C.accent, 700) +
-    t(90, 502, "BUILT IN HIGGSFIELD 3D JUTSU · AUTO", 22, C.teal, 600, 'letter-spacing="1.5"') +
+    (await photo("higgsfield-icon.png", 90, 467, 42, 42)) +
+    t(151, 498, "HIGGSFIELD 3D JUTSU · AUTO", 22, C.teal, 600, 'letter-spacing="1.5"') +
     rect(90, 552, 900, 498, "#d6d8cc", C.line, 12) +
     (await photo("higgsfield-jutsu-cover.png", 98, 560, 884, 482)) +
     rect(112, 576, 390, 41, "#14241c", "none", 4) +
