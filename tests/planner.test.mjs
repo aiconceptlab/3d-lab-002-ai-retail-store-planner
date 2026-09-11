@@ -4,7 +4,25 @@ import { readFile } from "node:fs/promises";
 import { validatePlan, metrics, canStand, footprints, movePosition } from "../public/planner.js";
 import { planWithAI } from "../lib/ai.mjs";
 import { createApp, store } from "../server.mjs";
+import { Box3 } from "three";
+import { buildStore } from "../public/scene-factory.js";
 const clone = (x) => structuredClone(x);
+test("detailed merchandise and equipment fit the validated floor footprints", () => {
+  for (const plan of [store.current, store.proposal]) {
+    const scene = buildStore(store, plan);
+    for (const f of footprints(store, plan)) {
+      const bounds = new Box3().setFromObject(scene.getObjectByName(f.id));
+      assert.ok(
+        bounds.min.x >= f.x - f.w / 2 - 1e-5 && bounds.max.x <= f.x + f.w / 2 + 1e-5,
+        f.id + " width",
+      );
+      assert.ok(
+        bounds.min.z >= f.z - f.d / 2 - 1e-5 && bounds.max.z <= f.z + f.d / 2 + 1e-5,
+        f.id + " depth",
+      );
+    }
+  }
+});
 test("movement substeps stop at displays and room boundaries, including large moves", () => {
   const stopped = movePosition(store, store.proposal, { x: -2.25, z: 4.5 }, 0, 1, 0, 10);
   assert.ok(stopped.z >= 3.45 && stopped.z < 3.55);

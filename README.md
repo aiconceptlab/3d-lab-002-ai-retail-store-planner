@@ -72,9 +72,9 @@ npm run check
 npm run export:scenes
 ```
 
-The 19 tests cover geometry, fixed checkout, every bay permutation, walking bounds, Responses request format, invalid/provider-error responses, HTTP access controls, paid-call cooldown and the actual GLB transforms. CI runs on Windows and Linux.
+The 20 tests cover geometry, fixed checkout, every bay permutation, walking bounds, Responses request format, invalid/provider-error responses, HTTP access controls, paid-call cooldown and the actual GLB transforms. CI runs on Windows and Linux.
 
-Edit `data/store.json` for fixtures and bay positions, `public/scene-factory.js` for geometry, and `public/style.css` for appearance. Run the exporter after changing the data or scene factory so the downloadable GLBs match. Canvas text labels are added by the web viewer; exported GLBs contain geometry and named fixture nodes, without those canvas labels.
+Edit `data/store.json` for fixtures and bay positions, `public/scene-factory.js` for geometry, and `public/style.css` for appearance. Run the exporter after changing the data or scene factory so the downloadable GLBs match. Raised signs and product lettering are actual meshes and are included in both the web viewer and GLB exports. The bundled Helvetiker font retains its original license in public/assets/FONT-LICENSE.txt.
 
 See [BUILD.md](BUILD.md) for architecture, verified references and limitations. Instagram assets and caption live in `marketing/`.
 
@@ -85,3 +85,5 @@ The default server binds to loopback. It is a local POC, not a hosted multi-user
 ## License
 
 MIT for the original starter code and original project assets. Three.js is MIT licensed. Vendor names are used descriptively; no affiliation or endorsement is implied.
+
+Helvetiker signage font: copyright MAGENTA Ltd., distributed under its included font license (see public/assets/FONT-LICENSE.txt); this font is not relicensed under the project MIT license.

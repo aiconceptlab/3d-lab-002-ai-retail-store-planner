@@ -23,7 +23,7 @@ No public 3D Jutsu REST endpoint was verified. Do not invent one or use private 
 ## Local verification
 
 - Node.js 24.10.0 on Windows; dependency installation completed with zero reported vulnerabilities.
-- 19 automated tests pass, including both binary GLB files and their fixture transforms.
+- 20 automated tests pass, including both binary GLB files and their fixture transforms.
 - Browser comparison shows 7.9 m / 3.3 m entrance-distance values, two moved fixtures, fixed checkout and 1.5 m reserved routes.
 - Desktop and mobile visual checks, walking controls, fixture selection and artifact exports are part of the release review.
 - Live Responses calls are mocked in tests. No paid OpenAI request was made for release verification.
@@ -45,5 +45,6 @@ The display-distance value is not an exposure score. This POC has no sight-line 
 
 The rate limit is intentionally process-local. Restarting the server resets it. Do not expose paid mode publicly without a production authentication and budget layer.
 
-
 Final visual review: the 390 px mobile layout has no horizontal overflow; the overview camera now fits the complete shop. Both layout switches, the aisle overlay and fixture inspection were exercised in Edge. Actual view PNGs and a mobile browser capture are in marketing/screenshots/. The supplied carousel was visually reviewed slide by slide and checked at 1080 × 1350.
+
+Detail update: modeled resealable coffee bags, pantry jars, hollow mugs with handles, gooseneck kettles, pour-over equipment, espresso machine, POS terminal, shelf tickets, fluted joinery, board flooring, brass trim, pendant diffusers and raised mesh signage. Added a test of the actual scene bounds against every fixture footprint. No paid generation is involved.

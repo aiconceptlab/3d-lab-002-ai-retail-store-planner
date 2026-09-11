@@ -127,35 +127,12 @@ function dispose(group) {
   }
   scene.remove(group);
 }
-function labels() {
-  // Category labels are actual canvas textures, not a screenshot simulation.
-  for (const f of footprints(store, active)) {
-    const c = document.createElement("canvas");
-    c.width = 512;
-    c.height = 96;
-    const ctx = c.getContext("2d");
-    ctx.fillStyle = f.color;
-    ctx.fillRect(0, 0, 512, 96);
-    ctx.fillStyle = "#fff8e9";
-    ctx.font = "bold 38px Arial";
-    ctx.textAlign = "center";
-    ctx.fillText(f.id === "checkout" ? "CHECKOUT" : f.label.toUpperCase(), 256, 61);
-    const texture = new THREE.CanvasTexture(c);
-    texture.colorSpace = THREE.SRGBColorSpace;
-    const mesh = new THREE.Mesh(
-      new THREE.PlaneGeometry(f.w, 0.26),
-      new THREE.MeshBasicMaterial({ map: texture }),
-    );
-    mesh.position.set(f.x, f.h + 0.03, f.z + (f.id === "checkout" ? f.d / 2 + 0.01 : 0.046));
-    world.add(mesh);
-  }
-}
 function rebuild() {
   if (!renderer) return;
   dispose(world);
   world = buildStore(store, active);
   scene.add(world);
-  labels();
+
   if (!aisleGroup) {
     aisleGroup = new THREE.Group();
     for (const a of store.aisles) {
@@ -283,10 +260,27 @@ $("save-view").onclick = () => {
     text("status", "3D export requires WebGL. The layout JSON is still available.");
     return;
   }
-  renderer.render(scene, camera);
+  const originalSize = renderer.getSize(new THREE.Vector2());
+  const originalRatio = renderer.getPixelRatio();
+  const exportScale = 2400 / Math.max(originalSize.x, originalSize.y);
+  let png;
+  try {
+    renderer.setPixelRatio(1);
+    renderer.setSize(
+      Math.round(originalSize.x * exportScale),
+      Math.round(originalSize.y * exportScale),
+      false,
+    );
+    renderer.render(scene, camera);
+    png = renderer.domElement.toDataURL("image/png");
+  } finally {
+    renderer.setPixelRatio(originalRatio);
+    renderer.setSize(originalSize.x, originalSize.y, false);
+    renderer.render(scene, camera);
+  }
   const image = document.createElement("img");
   image.alt = `Exported ${which} layout from the working 3D viewer`;
-  image.src = renderer.domElement.toDataURL("image/png");
+  image.src = png;
   const link = document.createElement("a");
   link.href = image.src;
   link.download = `daily-${which}-${which === "current" ? "existing" : source}.png`;
@@ -311,7 +305,7 @@ function overview() {
   $("walk").setAttribute("aria-pressed", "false");
   if (!renderer) return;
   controls.enabled = true;
-  camera.position.set(10, 10.5, 14).multiplyScalar(Math.max(1, 1.15 / camera.aspect));
+  camera.position.set(8, 8.4, 11.2).multiplyScalar(Math.max(1, 1.4 / camera.aspect));
   camera.up.set(0, 1, 0);
   controls.target.set(0, 0.5, 0);
   controls.update();
@@ -344,7 +338,7 @@ try {
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFShadowMap;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.3;
+  renderer.toneMappingExposure = 1.1;
   scene = new THREE.Scene();
   scene.background = new THREE.Color("#d6d8cc");
   camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
@@ -353,13 +347,14 @@ try {
   controls.maxPolarAngle = Math.PI * 0.48;
   controls.minDistance = 5;
   controls.maxDistance = 26;
-  scene.add(new THREE.HemisphereLight("#fff5df", "#6e7566", 2.3));
-  const sun = new THREE.DirectionalLight("#ffe7bd", 3.1);
+  scene.add(new THREE.HemisphereLight("#fff5df", "#6e7566", 1.65));
+  const sun = new THREE.DirectionalLight("#ffe7bd", 2.8);
   sun.position.set(4, 9, 6);
   sun.castShadow = true;
   sun.shadow.mapSize.set(2048, 2048);
   Object.assign(sun.shadow.camera, { left: -8, right: 8, top: 8, bottom: -8 });
   sun.shadow.bias = -0.0004;
+  sun.shadow.normalBias = 0.025;
   scene.add(sun);
   new ResizeObserver(() => {
     const { width, height } = $("stage").getBoundingClientRect();

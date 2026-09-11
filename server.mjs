@@ -13,6 +13,11 @@ const html = await readFile(new URL("public/index.html", root), "utf8");
 const importmap = html.match(/<script type="importmap">([\s\S]*?)<\/script>/)[1];
 const hash = createHash("sha256").update(importmap).digest("base64");
 const files = new Map([
+  ["/assets/sign-font.json", ["public/assets/sign-font.json", "application/json"]],
+  [
+    "/vendor/loaders/FontLoader.js",
+    ["node_modules/three/examples/jsm/loaders/FontLoader.js", "text/javascript"],
+  ],
   ["/", ["public/index.html", "text/html; charset=utf-8"]],
   ...["app.js", "planner.js", "scene-factory.js", "style.css"].map((f) => [
     "/" + f,
