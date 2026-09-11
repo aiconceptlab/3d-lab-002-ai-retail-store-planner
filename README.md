@@ -6,6 +6,10 @@ A small, runnable retail concept with a walkable 3D shop, Current / AI Layout co
 
 ![Actual app screenshot showing the sample proposal, fixed checkout and reserved circulation routes](marketing/screenshots/app-desktop.png)
 
+The release also includes a real capture from the editable [Higgsfield 3D Jutsu project](https://higgsfield.ai/3d-jutsu/dedde3ff-5ea4-455c-a369-4c5e459e4eac). That scene was built with the model selector showing **Auto · Free** and contains the shop shell, four fixture groups, product props, lighting and two cameras. GPT-6 Astra was not used for the 3D Jutsu scene.
+
+![Higgsfield 3D Jutsu editor showing the generated DAILY retail concept](marketing/screenshots/higgsfield-jutsu-editor.png)
+
 **This is AI concept visualization. It does not predict or prove sales uplift.** The default demo is a clearly labelled, pre-authored example. Live mode asks a model to assign existing fixtures to existing bays, then validates the result before showing it.
 
 ## Run in two minutes
@@ -63,7 +67,7 @@ Demo mode always loads the coffee example, even if you edit the goal. Live mode 
 
 ## Higgsfield workflow
 
-This release includes two actual GLB scenes and a prepared scene brief in [docs/higgsfield.md](docs/higgsfield.md). Higgsfield is an optional editorial/visualization workflow, not a hidden backend dependency. No undocumented 3D Jutsu API is called. A successful vendor generation and a specific model attribution must be verified before using “Powered by Higgsfield + GPT-6 Astra” on promotional material.
+This release includes two reproducible GLB scenes from the open-source Three.js implementation, plus a completed, editable [Higgsfield 3D Jutsu scene](https://higgsfield.ai/3d-jutsu/dedde3ff-5ea4-455c-a369-4c5e459e4eac). Higgsfield remains an optional visualization workflow rather than a runtime dependency. No undocumented 3D Jutsu API is called. The supplied vendor screenshots are attributed to **Higgsfield 3D Jutsu · Auto** because that is the model state actually observed during the build.
 
 ## Check and modify
 

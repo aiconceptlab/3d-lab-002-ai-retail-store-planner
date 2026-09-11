@@ -34,8 +34,8 @@ const footer = (i) =>
   rule(90, 1210, 900) +
   t(90, 1255, "AI RETAIL STORE PLANNER", 17, C.muted, 500, 'letter-spacing="2"') +
   t(990, 1262, `0${i} / 05`, 31, C.ink, 600, 'text-anchor="end"');
-const photo = async (file, x, y, w, h) =>
-  `<image x="${x}" y="${y}" width="${w}" height="${h}" preserveAspectRatio="xMidYMid meet" href="data:image/png;base64,${(await readFile(new URL("./screenshots/" + file, import.meta.url))).toString("base64")}"/>`;
+const photo = async (file, x, y, w, h, fit = "xMidYMid meet") =>
+  `<image x="${x}" y="${y}" width="${w}" height="${h}" preserveAspectRatio="${fit}" href="data:image/png;base64,${(await readFile(new URL("./screenshots/" + file, import.meta.url))).toString("base64")}"/>`;
 const card = (y, title, description, n) =>
   rect(90, y, 900, 146, "#193329", C.line, 12) +
   t(124, y + 54, n, 28, C.accent, 700) +
@@ -86,11 +86,12 @@ slides.push([
   "01-cover",
   lines(90, 252, ["I gave AI a shop", "and a goal:"], 79, C.ink, 700, 90) +
     t(90, 445, "sell more coffee.", 85, C.accent, 700) +
-    t(90, 502, "A RETAIL LAYOUT EXPERIMENT", 23, C.teal, 600, 'letter-spacing="2"') +
+    t(90, 502, "BUILT IN HIGGSFIELD 3D JUTSU · AUTO", 22, C.teal, 600, 'letter-spacing="1.5"') +
     rect(90, 552, 900, 498, "#d6d8cc", C.line, 12) +
-    (await photo("proposal-view.png", 98, 592, 884, 432)) +
-    t(120, 582, "ACTUAL APP RENDER · INCLUDED SAMPLE LAYOUT", 17, "#274235", 700) +
-    t(90, 1105, "Same shop. Same fixtures. A new hypothesis.", 29, C.ink, 400) +
+    (await photo("higgsfield-jutsu-cover.png", 98, 560, 884, 482)) +
+    rect(112, 576, 390, 41, "#14241c", "none", 4) +
+    t(132, 604, "REAL 3D JUTSU EDITOR CAPTURE", 16, C.ink, 700, 'letter-spacing="1"') +
+    t(90, 1105, "Editable scene + open-source walkthrough.", 29, C.ink, 400) +
     t(90, 1160, "AI concept visualization  ·  Swipe to explore →", 24, C.teal, 400),
 ]);
 slides.push([
@@ -146,14 +147,14 @@ slides.push([
   "04-build",
   lines(90, 250, ["A tiny build.", "A real walkthrough."], 73, C.ink, 700, 87) +
     t(90, 399, "THE SIMPLE STACK", 23, C.teal, 600, 'letter-spacing="2"') +
-    card(440, "Shop + goal", ["A small JSON file. Three movable displays."], "01") +
+    card(440, "Retail brief + constraints", ["One shop. Fixed checkout. Clear aisles."], "01") +
     card(
       603,
-      "Optional GPT-6 Astra planner",
-      ["Returns bay assignments and a short explanation."],
+      "Higgsfield 3D Jutsu · Auto",
+      ["An editable 392-object concept scene."],
       "02",
     ) +
-    card(766, "Geometry checks", ["Reject moved checkout or blocked reserved aisles."], "03") +
+    card(766, "Geometry checks", ["Reject moved checkout or blocked 1.5 m routes."], "03") +
     card(
       929,
       "Interactive Three.js viewer",
@@ -163,7 +164,7 @@ slides.push([
     lines(
       90,
       1130,
-      ["The included demo needs no keys.", "Live AI planning uses your API account."],
+      ["The included demo needs no keys.", "Optional live planning uses your API account."],
       24,
       C.muted,
       400,

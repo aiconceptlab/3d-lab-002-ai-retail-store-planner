@@ -14,11 +14,11 @@ The free demonstration has a pre-authored proposal and makes zero AI requests. I
 
 - [GPT-6 Astra model documentation](https://developers.openai.com/api/docs/models/gpt-6-astra): model ID, Responses support, structured output, low reasoning effort.
 - [OpenAI Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs): strict JSON schema in Responses `text.format`.
-- [Higgsfield 3D Jutsu overview](https://higgsfield.ai/blog/higgsfield-3d-jutsu): editable scene workflow and GLB exports. The public overview is not proof of feature access for a specific account.
+- [Higgsfield 3D Jutsu overview](https://higgsfield.ai/blog/higgsfield-3d-jutsu): editable scene workflow and GLB exports.
 - [Higgsfield plans](https://higgsfield.ai/creator-hub/help-center/plans/how-do-higgsfield-plans-work): model access depends on plan and rollout.
 - [Higgsfield credit packs](https://higgsfield.ai/creator-hub/help-center/credits/how-credit-packs-work): extra credits do not unlock plan features.
 
-No public 3D Jutsu REST endpoint was verified. Do not invent one or use private browser endpoints. The repository works without Higgsfield.
+No public 3D Jutsu REST endpoint was verified. The repository works without Higgsfield and does not call private browser endpoints.
 
 ## Local verification
 
@@ -27,6 +27,8 @@ No public 3D Jutsu REST endpoint was verified. Do not invent one or use private 
 - Browser comparison shows 7.9 m / 3.3 m entrance-distance values, two moved fixtures, fixed checkout and 1.5 m reserved routes.
 - Desktop and mobile visual checks, walking controls, fixture selection and artifact exports are part of the release review.
 - Live Responses calls are mocked in tests. No paid OpenAI request was made for release verification.
+- A Starter-enabled Higgsfield account was used to complete one editable 3D Jutsu scene with **Auto · Free**. The corrected scene reached revision 12, contained 392 objects during the verification pass, and reported zero intrusions in the 1.5 m central aisle, both cross-aisles and the queue zone.
+- The named vendor project, entrance camera and editor state were visually checked. The supplied screenshots are direct captures of that project. GPT-6 Astra was not used for the vendor scene.
 
 ## What this does not measure
 
@@ -47,4 +49,4 @@ The rate limit is intentionally process-local. Restarting the server resets it. 
 
 Final visual review: the 390 px mobile layout has no horizontal overflow; the overview camera now fits the complete shop. Both layout switches, the aisle overlay and fixture inspection were exercised in Edge. Actual view PNGs and a mobile browser capture are in marketing/screenshots/. The supplied carousel was visually reviewed slide by slide and checked at 1080 × 1350.
 
-Detail update: modeled resealable coffee bags, pantry jars, hollow mugs with handles, gooseneck kettles, pour-over equipment, espresso machine, POS terminal, shelf tickets, fluted joinery, board flooring, brass trim, pendant diffusers and raised mesh signage. Added a test of the actual scene bounds against every fixture footprint. No paid generation is involved.
+Detail update: modeled resealable coffee bags, pantry jars, hollow mugs with handles, gooseneck kettles, pour-over equipment, espresso machine, POS terminal, shelf tickets, fluted joinery, board flooring, brass trim, pendant diffusers and raised mesh signage. Added a test of the actual scene bounds against every fixture footprint. The open-source app and supplied GLBs remain fully local; the optional vendor scene was created separately in Higgsfield.

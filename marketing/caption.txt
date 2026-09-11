@@ -11,7 +11,9 @@ The idea: explore a merchandising hypothesis before moving the real shelves.
 
 In the included example, coffee moves from the rear display to an entrance-side bay. You can switch between Current and AI Layout, walk through both, inspect the floor plan and export the scene.
 
-The free starter includes a clearly labelled sample proposal. Connect an API account to let GPT-6 Astra interpret a custom goal; code checks the returned layout before showing it.
+I built the editable visual concept in Higgsfield 3D Jutsu using Auto, then packaged the idea as a separate open-source Three.js starter with measured layout checks.
+
+The free starter includes a clearly labelled sample proposal. Connect an API account to let GPT-6 Astra interpret a custom goal; the code validates the returned layout before showing it. Astra was not used for the Higgsfield scene.
 
 This is AI concept visualization. A display moving closer to the entrance does not prove increased sales. That would need a real-world experiment.
 
